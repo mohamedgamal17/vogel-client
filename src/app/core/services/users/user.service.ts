@@ -5,6 +5,7 @@ import Paging from "../../types/paging.interface";
 import { Observable, retry } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import UserRequest from "./requests/user.request";
+import ApiResoponse from "../../types/api-response.interface";
 
 @Injectable({
      providedIn: "root"
@@ -17,22 +18,20 @@ export default class UserService {
 
      }
 
-     getAll(): Observable<Paging<User>> {
-          return this.httpClient.get<Paging<User>>(this.baseUrl)
+     getAll(){
+          return this.httpClient.get<ApiResoponse<User>>(this.baseUrl)
      }
 
-     getById(id : string) : Observable<User> {
-          return this.httpClient.get<User>(this.baseUrl + "/" + id);
+     getById(id : string)  {
+          return this.httpClient.get<ApiResoponse<User>>(this.baseUrl + "/" + id);
      }
 
-     create(request : UserRequest) : Observable<User>{
-          return this.httpClient.post<User>(this.baseUrl, request)
+     create(request : UserRequest) {
+          return this.httpClient.post<ApiResoponse<User>>(this.baseUrl, request)
      }
 
-     update(id : string,request : UserRequest) : Observable<User>
+     update(id : string,request : UserRequest)
      {
-          return this.httpClient.put<User>(this.baseUrl + "/" + id, request);
+          return this.httpClient.put<ApiResoponse<User>>(this.baseUrl + "/" + id, request);
      }
-
-
 }

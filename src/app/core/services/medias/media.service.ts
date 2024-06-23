@@ -3,6 +3,7 @@ import { environment } from "../../../../environments/environment";
 import { HttpClient, HttpEvent } from "@angular/common/http";
 import { Media } from "../../types/medias/media.interfcae";
 import { Observable, finalize } from "rxjs";
+import ApiResoponse from "../../types/api-response.interface";
 
 @Injectable({
      providedIn: "root"
@@ -16,17 +17,17 @@ export default class MediaService {
      }
 
      getAll() {
-          return this.httpClient.get<Media[]>(this.baseUrl);
+          return this.httpClient.get<ApiResoponse<Media[]>>(this.baseUrl);
      }
 
      getById(id : string){
-          return this.httpClient.get<Media>(this.baseUrl + "/" + id)
+          return this.httpClient.get<ApiResoponse<Media>>(this.baseUrl + "/" + id)
      }
 
-     create(file : File) : Observable<HttpEvent<Media>>{
+     create(file : File) : Observable<HttpEvent<ApiResoponse<Media>>>{
           var formData = new FormData();
           formData.append('file', file)
-          return this.httpClient.post<Media>(this.baseUrl,formData, {
+          return this.httpClient.post<ApiResoponse<Media>>(this.baseUrl,formData, {
                reportProgress : true,
                observe:"events"
           });
