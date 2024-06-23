@@ -4,14 +4,18 @@ import UserService from './services/users/user.service';
 import PostService from './services/posts/post.service';
 import CommentService from './services/comments/comment.service';
 import MediaService from './services/medias/media.service';
+import { HeaderComponent } from './components/header/header.component';
 
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    HeaderComponent
+  ],
   imports: [
   ],
-  providers :[UserService, PostService, CommentService, MediaService]
+  providers :[UserService, PostService, CommentService, MediaService],
+  exports:[HeaderComponent]
 })
 export class CoreModule { }
