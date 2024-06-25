@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 
@@ -11,8 +11,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
-  exports: [CommonModule, FormsModule, RouterModule, SpinnerComponent]
+  exports: [CommonModule, FormsModule, RouterModule, SpinnerComponent, ReactiveFormsModule]
 })
 export class SharedModule { }

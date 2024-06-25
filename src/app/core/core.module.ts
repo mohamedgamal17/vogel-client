@@ -5,17 +5,19 @@ import PostService from './services/posts/post.service';
 import CommentService from './services/comments/comment.service';
 import MediaService from './services/medias/media.service';
 import { HeaderComponent } from './components/header/header.component';
+import { DataTimeAgoPipe } from './pipes/data-time-ago.pipe';
 
 
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    DataTimeAgoPipe
   ],
   imports: [
   ],
   providers :[UserService, PostService, CommentService, MediaService],
-  exports:[HeaderComponent]
+  exports:[HeaderComponent, DataTimeAgoPipe]
 })
 export class CoreModule { }
