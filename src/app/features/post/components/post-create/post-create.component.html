@@ -1,0 +1,78 @@
+<ng-container>
+     <ng-container *ngIf="(isLoading$ | async)">
+          <app-spinner></app-spinner>
+     </ng-container>
+     
+     <ng-container *ngIf="!(isLoading$ | async) && (currentUser$ | async) as currentUser">
+          <div class="card card-small mb-3">
+               <div class="share-box-inner">
+                    <div class="profile-thumb">
+                         <a href="#">
+                              <figure class="profile-thumb-middle">
+                                   <img  [src]="currentUser.avatar?.reference ??'assets/images/profile/profile-small-37.jpg'" 
+                                   alt="profile picture" />                          
+                              </figure>
+                         </a>
+                    </div>
+          
+                    <div class="share-content-box w-100">
+                         <form class="share-text-box">
+                              <textarea name="share" class="share-text-field disabled" aria-disabled="true" placeholder="Say Something"
+                                   data-toggle="modal" data-target="#textbox" id="email"></textarea>
+                              <button class="btn-share" type="submit" data-toggle="modal" data-target="#textbox">share</button>
+                         </form>
+                    </div>
+          
+                    <div class="modal fade" id="textbox" aria-labelledby="textbox">
+                         <div class="modal-dialog">
+                              <div class="modal-content">
+                                   <div class="modal-header">
+                                        <h5 class="modal-title">Share Your Mood</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                        </button>
+                                   </div>
+                                   <div class="modal-body custom-scroll">
+                                        <form  [formGroup]="formGroup">
+                                             <textarea name="share" class="share-field-big custom-scroll"
+                                                  placeholder="Say Something" formControlName="caption"></textarea>
+          
+                                             <ng-container
+                                                  *ngIf="formGroup.get('caption')?.invalid &&   formGroup.get('caption')?.errors &&  (formGroup.get('caption')?.dirty || formGroup.get('caption')?.touched) ">
+          
+                                                  <small class="text-danger"
+                                                       *ngIf="formGroup.get('caption')?.hasError('required')">
+                                                       caption field is requeired
+                                                  </small>
+          
+                                             </ng-container>
+                                        </form>
+          
+                                        <input type="file" class="form-control" (change)="updateFile($event)" />
+                                   </div>
+                                   <div class="modal-footer">
+                                        <button type="button" class="post-share-btn" data-dismiss="modal"
+                                             [disabled]="isPosting$ | async">
+                                             cancel
+                                        </button>
+                                        <button type="submit" class="post-share-btn" (click)="createPost()"  [disabled]="(isPosting$ | async) || (isUploading$ | async)">
+                                             <ng-container *ngIf="(isPosting$ | async) || (isUploading$ | async)">
+                                                  <span class="spinner-border spinner-border-sm" role="status"
+                                                       aria-hidden="true"></span>
+                                                  <span class="sr-only">Loading...</span>
+                                             </ng-container>
+                                             <ng-container *ngIf="!(isPosting$ | async) || !(isUploading$ | async)">
+                                                  Post
+                                             </ng-container>
+                                        </button>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </ng-container>
+</ng-container>
+
+
+

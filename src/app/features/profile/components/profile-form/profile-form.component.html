@@ -1,0 +1,155 @@
+<form [formGroup]="formGroup" (ngSubmit)="updateProfile($event)">
+     <div class="row">
+          <div class="col-lg-12 my-5">
+               <h2 class="text-secondary">{{title}}</h2>
+               <hr>
+          </div>
+          <div class="col-lg-8">
+               <div class="row">
+                    <div class="col-lg-12">
+                         <div class="row">
+                              <div class="col-sm-12 my-4">
+                                   <h3 class="my-4">Information</h3>
+                              </div>
+                              <ng-container *ngIf="!formGroup.valid && submitted" >
+                                   <div class="col-sm-12 mb-4">
+                                        <div class="text-danger">
+                                             <h4 class="text-danger">Please enter valid data</h4>
+                                        </div>
+                                   </div>
+                                   
+                              </ng-container>
+                              <div class="col-md-6 form-group">
+                                   <label for="firstName">First Name</label>
+                                   <input type="email" class="form-control" id="firstName" aria-describedby="firstname"
+                                        placeholder="Enter first name" formControlName="firstName">
+                                   <ng-container
+                                        *ngIf=" formGroup.get('firstName')?.errors &&  !formGroup.get('firstName')?.valid && (formGroup.get('firstName')?.dirty || formGroup.get('firstName')?.touched || submitted) ">
+                                        
+                                        <div>
+                                             <div class="text-danger"
+                                                  *ngIf="formGroup.get('firstName')?.hasError('required')">
+                                                  Please enter first name
+                                             </div>
+                                             <div class="text-danger"
+                                                  *ngIf="formGroup.get('firstName')?.hasError('min')">
+                                                  first name min length is 2
+                                             </div>
+                                             <div class="text-danger"
+                                                  *ngIf="formGroup.get('firstName')?.hasError('max')">
+                                                  first name min length is 256
+                                             </div>
+                                        </div>
+
+                                   </ng-container>
+
+
+                              </div>
+                              <div class="col-md-6 form-group">
+                                   <label for="exampleInputEmail1">Last Name</label>
+                                   <input type="email" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" formControlName="lastName" placeholder="enter last name">
+
+                                   <ng-container
+                                        *ngIf=" formGroup.get('lastName')?.errors &&  !formGroup.get('lastName')?.valid && (formGroup.get('lastName')?.dirty || formGroup.get('lastName')?.touched  || submitted) ">
+                                        
+                                        <div>
+                                             <div class="text-danger"
+                                                  *ngIf="formGroup.get('lastName')?.hasError('required')">
+                                                  Please enter last name
+                                             </div>
+                                             <div class="text-danger"
+                                                  *ngIf="formGroup.get('lastName')?.hasError('min')">
+                                                  last name min length is 2
+                                             </div>
+                                             <div class="invalid-feedback"
+                                                  *ngIf="formGroup.get('lastName')?.hasError('max')">
+                                                  last name min length is 256
+                                             </div>
+                                        </div>
+
+                                   </ng-container>
+                              </div>
+                              <div class="col-md-6 form-group">
+                                   <label for="gender">Gender</label>
+                                   <select class="form-control" id="gender" formControlName="gender">
+                                        <option value="0">Male</option>
+                                        <option value="5">Female</option>
+                                   </select>
+                                   <ng-container
+                                        *ngIf=" formGroup.get('gender')?.errors &&  !formGroup.get('gender')?.valid && (formGroup.get('gender')?.dirty || formGroup.get('gender')?.touched || submitted ) ">
+                                        <div>
+                                             <div class="text-danger"
+                                                  *ngIf="formGroup.get('gender')?.hasError('required')">
+                                                  Please select gender
+                                             </div>
+
+                                        </div>
+
+                                   </ng-container>
+
+                              </div>
+
+                              <div class="col-md-6 form-group">
+                                   <label for="birthDate">Birthdate</label>
+                                   <input type="date" class="form-control" id="birthdate" aria-describedby="birthDate"  formControlName="birthDate" >
+                                   <ng-container
+                                        *ngIf=" formGroup.get('birthDate')?.errors &&  !formGroup.get('birthDate')?.valid && (formGroup.get('birthDate')?.dirty || formGroup.get('birthDate')?.touched || submitted ) ">
+                                        <div>
+                                             <div class="text-danger"
+                                                  *ngIf="formGroup.get('birthDate')?.hasError('required')">
+                                                  Please enter birthdate
+                                             </div>
+
+                                        </div>
+
+                                   </ng-container>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+          <div class="col-lg-4">
+               <div class="bg-secondary-soft px-4 py-5 rounded">
+                    <div class="row g-3">
+                         <div class="col-lg-12">
+                              <ng-container *ngIf="!formGroup.get('avatar')?.value">
+                                   <h4 class="mb-4 mt-0">Upload your profile photo</h4>
+                              </ng-container>
+                              <ng-container *ngIf="formGroup.get('avatar')?.value">
+                                   <h4 class="mb-4 mt-0">Your profile photo</h4>
+                              </ng-container>
+                             
+                         </div>
+                         <div class="col-lg-12">
+                              <div class="text-center">
+                                   <!-- Image upload -->
+                                   <div class="square position-relative display-2 mb-3">
+                                        <img [src]="formGroup.get('avatar')?.value?.reference ?? 'assets/images/profile/profile-small-3.jpg'" width="300" height="300">
+                                   </div>                                                
+                                   <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                             <input type="file" id="image" class="d-none" (change)="updateImage($event)"/>
+                                             <label class="btn btn-success btn-block" for="image" >Upload</label>
+                                        </div>
+                                        <ng-container *ngIf="formGroup.get('avatar')?.value">
+                                             <div class="col-lg-6">
+                                                  <button type="button" class="btn btn-danger" [disabled]="(isUploading$ | async) || isPosting" (click)="removeImage()">Remove</button>
+                                             </div>
+                                        </ng-container>
+                                     
+                                   </div>
+                              </div>
+                         </div>
+
+                    </div>
+               </div>
+          </div>
+
+          <div class="col-lg-12 my-5">
+               <div class="float-right">
+                   <button class="submit-btn" type="submit" [disabled]="(isUploading$ | async) || isPosting">Update</button>
+               </div>
+           </div>
+     </div>
+</form>

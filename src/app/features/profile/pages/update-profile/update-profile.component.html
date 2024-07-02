@@ -1,0 +1,12 @@
+<ng-container *ngIf="(appState$ | async) as appState">
+     <ng-container [ngSwitch]="appState.state">
+          <ng-container *ngSwitchCase="DataState.LOADING">
+               <app-spinner></app-spinner>
+          </ng-container>
+          <ng-container *ngSwitchCase="DataState.LOADED">
+               <app-profile-form [title]="'Edit your profile'" (profileUpdated)="updateUserProfile($event)" 
+                    [isPosting]="(isPosting$ | async)!"  [profile]="appState.data?.data" ></app-profile-form>
+          </ng-container>
+     </ng-container>
+</ng-container>
+

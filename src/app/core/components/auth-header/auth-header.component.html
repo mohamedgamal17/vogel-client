@@ -1,0 +1,49 @@
+<div class="profile-setting-box">
+  <ng-container *ngIf="(currentUser$ | async) as currentUser ">
+      <div class="profile-thumb-small">
+          <a href="javascript:void(0)" class="profile-triger" (click)="toggleProfileMenu()">
+              <figure>
+                  <img [src]="currentUser?.avatar?.reference ?? 'assets/images/profile/profile-small-1.jpg'" alt="profile picture">
+              </figure>
+          </a>
+          <div class="profile-dropdown d-block" *ngIf="showProfileMenu">
+              <ng-container *ngIf="currentUser">
+                  <div class="profile-head">
+                      <h5 class="name"><a href="#">{{currentUser.firstName + ' ' + currentUser.lastName}}</a></h5>
+                  </div>
+                  <div class="profile-body">
+                      <ul>
+                          <li><a href="profile.html"><i class="flaticon-user"></i>Profile</a></li>
+                          <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
+                          <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
+                      </ul>
+                      <ul>
+                          <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li>
+                          <li><a href="javascript.void(0)" (click)="logout()"><i class="flaticon-unlock"></i>Sing out</a></li>
+                      </ul>
+                  </div>
+              </ng-container>
+             
+              <ng-container *ngIf=" !(currentUser) ">
+                  <ng-container *ngIf="(authService.user$ | async) as authUser">
+                      <div class="profile-head">
+                          <h5 class="name"><a href="#">
+                              {{authUser.given_name + ' ' +authUser.family_name}}
+                          </a></h5>
+                      </div>
+                      <div class="profile-body">
+                          <ul>                                                      
+                              <li><a href="javascript.void(0)" (click)="logout()"><i class="flaticon-unlock"></i>Sing out</a></li>
+                          </ul>
+                      </div>
+                  </ng-container>
+                 
+              </ng-container>
+          </div>
+      </div>
+  </ng-container>
+  <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
+      <a href="javascript.void(0)" (click)="login()"><i class="flaticon-unlock"></i>Login</a>
+  </ng-container>
+  
+</div>

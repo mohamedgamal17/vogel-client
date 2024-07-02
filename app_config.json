@@ -1,0 +1,10 @@
+{
+  "apiUrl": "https://localhost:7254/api",
+  "auth": {
+    "domain": "dev-86svyzlv1vxhmxlg.us.auth0.com",
+    "clientId": "r7d114nbfMWenIprAJnOlCvsDAJXeLmg",
+    "authorizationParams": {
+      "audience": "vogel-api"
+    }
+  }
+}
