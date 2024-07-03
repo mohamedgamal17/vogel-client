@@ -23,6 +23,6 @@ import { PostCreateComponent } from './components/post-create/post-create.compon
     CoreModule,
     SharedModule
   ],
-  exports:[PostComponent]
+  exports:[PostComponent,PostCreateComponent,PostListItemComponent]
 })
 export class PostModule { }

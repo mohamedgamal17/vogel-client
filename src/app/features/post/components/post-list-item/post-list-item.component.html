@@ -9,7 +9,7 @@
              </a>
          </div>
          <div class="posted-author">
-             <h6 class="author"><a href="/profile">{{post.user.firstName + ' ' + post.user.lastName}}</a></h6>
+             <h6 class="author"><a [routerLink]="['/profile', post.user.id]">{{post.user.firstName + ' ' + post.user.lastName}}</a></h6>
              <span class="post-time">20 min ago</span>
          </div>
 

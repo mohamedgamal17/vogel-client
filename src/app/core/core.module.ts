@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthHeaderComponent } from './components/auth-header/auth-header.component';
 import { MobileHeaderComponent } from './components/mobile-header/mobile-header.component';
 import { AuthMobileHeaderComponent } from './components/auth-mobile-header/auth-mobile-header.component';
+import PeopleService from './services/people/people.service';
 
 
 
@@ -30,7 +31,8 @@ import { AuthMobileHeaderComponent } from './components/auth-mobile-header/auth-
     UserService, 
     PostService, 
     CommentService, 
-    MediaService
+    MediaService,
+    PeopleService
   ],
   exports:[HeaderComponent, DataTimeAgoPipe]
 })

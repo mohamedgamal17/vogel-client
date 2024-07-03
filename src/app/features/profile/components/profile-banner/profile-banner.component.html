@@ -1,0 +1,41 @@
+<ng-container *ngIf="(appState$ | async) as appState">
+  <ng-container [ngSwitch]="appState.state">
+    <ng-container *ngSwitchCase="DataState.LOADING">
+      <app-spinner></app-spinner>
+    </ng-container>
+    <ng-container *ngSwitchCase="DataState.LOADED">
+      <div class="profile-banner-large bg-img" data-bg="assets/images/banner/profile-banner.jpg">
+      </div>
+      <div class="profile-menu-area bg-white">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-3 col-md-3">
+              <div class="profile-picture-box">
+                <figure class="profile-picture">
+                  <a href="javascript.void(0)">
+                    <img [src]="appState.data?.data?.avatar?.reference ?? 'assets/images/profile/profile-1.jpg'"
+                      alt="profile picture" width="270" height="270">
+                  </a>
+                </figure>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 offset-lg-1 p-3">
+              <h3>{{appState.data?.data?.firstName + ' ' + appState.data?.data?.lastName}}</h3>
+            </div>
+            <ng-container *ngIf="(authService.user$ | async) as user">
+              <ng-container *ngIf="user.sub == userId">
+                <div class="col-lg-2 col-md-3 d-none d-md-block">
+                  <div class="profile-edit-panel">
+                    <button class="edit-btn" (click)="redirectToEditPage()">edit profile</button>
+                  </div>
+                </div>
+              </ng-container>
+
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>

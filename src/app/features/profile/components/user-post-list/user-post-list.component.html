@@ -1,0 +1,19 @@
+<ng-container *ngIf="(authService.user$ | async) as user">
+  <app-post-create *ngIf="userId == user.sub" (postCreated)="addNewPost($event)"> </app-post-create>
+</ng-container>
+<ng-container *ngIf="(dataState$ | async) as dataState">
+  <ng-container [ngSwitch]="dataState">
+    <ng-container *ngSwitchCase="DataState.LOADING">
+      <app-spinner></app-spinner>
+    </ng-container>
+    <ng-container *ngSwitchCase="DataState.LOADED">
+      <ng-container *ngIf="posts && posts.length > 0">
+        <app-post-list-item *ngFor="let post of posts" [post]="post"></app-post-list-item>
+      </ng-container>
+     <ng-container *ngIf="posts.length <= 0">
+        <p>There is no posts yet</p>
+     </ng-container>
+    </ng-container>
+  </ng-container>
+ 
+</ng-container>

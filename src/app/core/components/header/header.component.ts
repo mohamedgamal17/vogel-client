@@ -41,6 +41,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         $($prevTartget).slideUp();
       }
     });
+
+  
   }
 
  

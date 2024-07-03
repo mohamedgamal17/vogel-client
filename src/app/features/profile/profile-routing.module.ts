@@ -4,10 +4,12 @@ import { CreateProfileComponent } from './pages/create-profile/create-profile.co
 import { authGuardFn } from '@auth0/auth0-angular';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 import { profileGuardFn } from '../../core/guards/profile.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {path:"profile/create", component: CreateProfileComponent,  canActivate :[authGuardFn] },
-  {path:"profile/edit", component:UpdateProfileComponent, canActivate:[authGuardFn,profileGuardFn]}
+  {path:"profile/edit", component:UpdateProfileComponent, canActivate:[authGuardFn,profileGuardFn]},
+  {path:"profile/:id", component:ProfileComponent , canActivate:[authGuardFn, profileGuardFn]},
 ];
 
 @NgModule({

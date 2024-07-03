@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import UserService from '../../services/users/user.service';
 import { Observable, catchError, map, of } from 'rxjs';
@@ -9,7 +9,7 @@ import { User } from '../../types/users/user.interface';
   templateUrl: './auth-header.component.html',
   styleUrl: './auth-header.component.css'
 })
-export class AuthHeaderComponent implements OnInit{
+export class AuthHeaderComponent implements OnInit , AfterViewInit{
 
   currentUser$  : Observable<User|null>
 
@@ -17,6 +17,9 @@ export class AuthHeaderComponent implements OnInit{
 
   constructor(public authService : AuthService, private userService : UserService){
 
+  }
+  ngAfterViewInit(): void {
+ 
   }
   ngOnInit(): void {
     this.authService.isAuthenticated$.subscribe((authenticated) => {

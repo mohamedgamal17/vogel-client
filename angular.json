@@ -37,10 +37,11 @@
               },
               "src/assets"
             ],
-            "styles": [
+            "styles": [      
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/lightgallery/css/lightgallery-bundle.min.css",
               "src/styles.css",
-              "src/assets/css/main.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/assets/css/main.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
