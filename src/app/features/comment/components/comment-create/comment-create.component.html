@@ -1,0 +1,23 @@
+<div class="share-box-inner mb-5">
+  <div class="profile-thumb">
+    <a href="#">
+      <figure class="profile-thumb-middle">
+        <img [src]="user.avatar?.reference ?? 'assets/images/profile/profile-small-37.jpg'" alt="profile picture">
+      </figure>
+    </a>
+  </div>
+  <div class="share-content-box w-100">
+    <form class="share-text-box" (submit)="create($event)" [formGroup]="formGroup">
+      <textarea name="share" class="share-text-field" placeholder="Say Something" id="email" formControlName="content">
+        </textarea>
+      <button class="btn-share" type="submit" [disabled]="(isPosting$ | async)">
+        <ng-container *ngIf="isPosting$ | async" >
+          <i class="fa-duotone fa-spinner"></i>
+        </ng-container>
+        <ng-container *ngIf="!(isPosting$ | async)">
+          <i class="fa-regular fa-paper-plane"></i>
+        </ng-container>       
+      </button>
+    </form>
+  </div>
+</div>

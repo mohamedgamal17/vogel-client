@@ -49,7 +49,7 @@
              </button>
              <ul class="comment-share-meta">
                  <li>
-                     <button class="post-comment">
+                     <button class="post-comment" (click)="toggleCommentSection()">
                          <i class="bi bi-chat-bubble"></i>
                          <span>41</span>
                      </button>
@@ -62,5 +62,8 @@
                  </li>
              </ul>
          </div>
+         <ng-container *ngIf="showComemntSection">
+            <app-comment-list [postId]="post.id"></app-comment-list>
+         </ng-container>
      </div>
  </div>

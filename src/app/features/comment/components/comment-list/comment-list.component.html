@@ -1,0 +1,26 @@
+
+<div class="post-comments mt-5">
+  <ng-container *ngIf="(dataState$ | async) as dataState">
+    <ng-container [ngSwitch]="dataState">
+      <ng-container *ngSwitchCase="DataState.LOADING">
+          <app-spinner></app-spinner>
+      </ng-container>
+      <ng-container *ngSwitchCase="DataState.LOADED">
+        <ng-container *ngIf="(user$ | async) as user">
+          <app-comment-create [user]="user" [postId]="postId" (created)="addNewComment($event)"></app-comment-create>
+        </ng-container>
+        <ul class="dropdown-msg-list">
+          <ng-container *ngIf="(user$ | async ) as user">
+            <ng-container *ngIf="comments.length > 0">
+              <app-comment-list-item *ngFor="let comment of comments" 
+                [comment]="comment" [user]="user"></app-comment-list-item>
+            </ng-container>
+            <ng-container *ngIf="comments.length <= 0">
+                <p class="text-center">There is no comments yet</p>
+            </ng-container>   
+          </ng-container>       
+        </ul>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

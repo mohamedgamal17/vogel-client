@@ -1,0 +1,53 @@
+<li class="msg-list-item d-flex justify-content-between">
+  <ng-container *ngIf="!showEditForm">
+    <div class="profile-thumb">
+      <figure class="profile-thumb-middle">
+        <img [src]="comment.user.avatar?.reference ?? 'assets/images/profile/profile-small-3.jpg' " alt="profile picture">
+      </figure>
+    </div>
+    <div class="msg-content">
+      <h6 class="author"><a [routerLink]="['/profile', comment.user.id]">{{comment.user.firstName + ' ' + comment.user.lastName}}</a></h6>
+      <p class="mt-1 text-large">{{comment.content}}</p>
+    </div>
+    <div class="msg-time">
+      <p>25 Apr 2019</p>
+    </div>
+    <ng-container *ngIf="comment.userId == user.id">
+      <div class="msg-edit mt-3">
+        <button class="search-btn" (click)="toggleEditForm()">
+          <i class="flaticon-edit"></i>
+        </button>
+      </div>
+    </ng-container>
+
+  </ng-container>
+ 
+  <ng-container *ngIf="showEditForm">
+    <div class="share-box-inner mb-5" style="width: 100% !important;">
+      <div class="profile-thumb">
+        <a href="#">
+          <figure class="profile-thumb-middle">
+            <img [src]="user.avatar?.reference ?? 'assets/images/profile/profile-small-37.jpg'" alt="profile picture">
+          </figure>
+        </a>
+      </div>
+      <div class="share-content-box w-100">
+        <form class="share-text-box" (submit)="edit($event)" [formGroup]="formGroup">
+          <textarea name="share" class="share-text-field" placeholder="Say Something" id="email" formControlName="content">
+            </textarea>
+            <button class="comment-edit-submit-btn" type="submit" [disabled]="isEditing$ | async">
+              <i class="fa-regular fa-paper-plane"></i>
+           </button>
+           <ng-container *ngIf="!(isEditing$ | async)">
+            <button class="comment-edit-close-btn" (click)="toggleEditForm()">
+              <i class="fa-solid fa-xmark"></i>
+           </button>
+           </ng-container>
+        
+        </form>
+       
+      </div>
+    </div>
+  </ng-container>
+  
+</li>

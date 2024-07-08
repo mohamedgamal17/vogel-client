@@ -48,7 +48,7 @@
                                              </ng-container>
                                         </form>
           
-                                        <input type="file" class="form-control" (change)="updateFile($event)" />
+                                        <input type="file" class="form-control" (change)="updateFile($event)" #mediaInput />
                                    </div>
                                    <div class="modal-footer">
                                         <button type="button" class="post-share-btn" data-dismiss="modal"
@@ -62,7 +62,7 @@
                                                   <span class="sr-only">Loading...</span>
                                              </ng-container>
                                              <ng-container *ngIf="!(isPosting$ | async) || !(isUploading$ | async)">
-                                                  Post
+                                                  <i class="fa-regular fa-paper-plane"></i>
                                              </ng-container>
                                         </button>
                                    </div>

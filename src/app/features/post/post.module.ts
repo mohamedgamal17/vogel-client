@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { PostListItemComponent } from './components/post-list-item/post-list-item.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { PostCreateComponent } from './components/post-create/post-create.component';
+import { CommentModule } from '../comment/comment.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PostCreateComponent } from './components/post-create/post-create.compon
     CommonModule,
     PostRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    CommentModule
   ],
   exports:[PostComponent,PostCreateComponent,PostListItemComponent]
 })

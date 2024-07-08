@@ -1,0 +1,4 @@
+.post-comments {
+  max-height: 400px;
+  overflow: scroll;
+}

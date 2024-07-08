@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, RequiredValidator, Validators } from '@angular/forms';
 import { PostRequest } from '../../../../core/services/posts/requests/post.request';
 import PostService from '../../../../core/services/posts/post.service';
@@ -25,6 +25,9 @@ export class PostCreateComponent implements OnInit {
   isLoading$ = this.isLoading.asObservable();
   private isUploading = new BehaviorSubject<boolean>(false)
   isUploading$ = this.isUploading.asObservable()
+
+  @ViewChild('mediaInput') mediaInput : ElementRef
+
   constructor(private fb: FormBuilder, private postService: PostService, private mediaService: MediaService, private userService: UserService) {
 
   }
@@ -78,6 +81,7 @@ export class PostCreateComponent implements OnInit {
               <p>your post has been created successfully</p>
             `,'success')
           this.isPosting.next(false)
+          this.mediaInput.nativeElement.value = null
           this.formGroup.reset();
           this.postCreated.emit(resp.data)
         })

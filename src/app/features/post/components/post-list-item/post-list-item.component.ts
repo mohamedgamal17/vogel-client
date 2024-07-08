@@ -8,4 +8,10 @@ import { Post } from '../../../../core/types/posts/post.interface';
 })
 export class PostListItemComponent {
   @Input() post : Post
+  
+  showComemntSection : boolean =  false
+
+  toggleCommentSection(){
+    this.showComemntSection = !this.showComemntSection;
+  }
 }
