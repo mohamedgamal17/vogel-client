@@ -12,6 +12,7 @@ import { AuthHeaderComponent } from './components/auth-header/auth-header.compon
 import { MobileHeaderComponent } from './components/mobile-header/mobile-header.component';
 import { AuthMobileHeaderComponent } from './components/auth-mobile-header/auth-mobile-header.component';
 import PeopleService from './services/people/people.service';
+import { ScrollEndDirective } from './directives/scroll-end.directive';
 
 
 
@@ -21,7 +22,8 @@ import PeopleService from './services/people/people.service';
     DataTimeAgoPipe,
     AuthHeaderComponent,
     MobileHeaderComponent,
-    AuthMobileHeaderComponent
+    AuthMobileHeaderComponent,
+    ScrollEndDirective
   ],
   imports: [
     SharedModule
@@ -34,6 +36,6 @@ import PeopleService from './services/people/people.service';
     MediaService,
     PeopleService
   ],
-  exports:[HeaderComponent, DataTimeAgoPipe]
+  exports:[HeaderComponent, DataTimeAgoPipe , ScrollEndDirective]
 })
 export class CoreModule { }

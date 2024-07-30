@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import PostService from '../../../../core/services/posts/post.service';
 import AppDataState, { DataState } from '../../../../core/models/appState';
 import ApiResoponse from '../../../../core/types/api-response.interface';
 import { Post } from '../../../../core/types/posts/post.interface';
-import { BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxjs';
+import { BehaviorSubject, Observable,  firstValueFrom } from 'rxjs';
 import { PagingInfo } from '../../../../core/types/paging.interface';
 
 @Component({
@@ -14,6 +14,8 @@ import { PagingInfo } from '../../../../core/types/paging.interface';
 export class PostListComponent implements OnInit {
 
   private dataState = new BehaviorSubject<DataState>(DataState.LOADING);
+  private scrollLoading = new BehaviorSubject<boolean>(false);
+  scrollLoading$ = this.scrollLoading.asObservable()
   dataState$ = this.dataState.asObservable();
   posts: Post[] = []
   pagingInfo?: PagingInfo;
@@ -32,16 +34,39 @@ export class PostListComponent implements OnInit {
         this.dataState.next(DataState.LOADED);
         this.posts = [...resp.data]
         this.pagingInfo = resp.pagingInfo
-      },err => {
+      }, err => {
         this.dataState.next(DataState.ERROR);
         this.error = err
       })
-      
+
   }
 
-  addNewPost(post : Post){
+
+  addNewPost(post: Post) {
     console.log(post)
-    this.posts = [post,...this.posts]
+    this.posts = [post, ...this.posts]
+  }
+
+
+  async loadNext() {
+
+    const isLoading = await firstValueFrom(this.scrollLoading)
+
+    if (!isLoading) {
+      if (this.pagingInfo?.hasNext) {
+        this.scrollLoading.next(true)
+        this.postService.getAll({
+          cursor: this.pagingInfo.nextCursor!,
+          limit: 10
+        }).subscribe((resp) => {
+          this.posts = [...this.posts, ...resp.data]
+          this.pagingInfo = resp.pagingInfo
+          this.scrollLoading.next(false)
+        })
+
+      }
+    }
+
   }
 
 

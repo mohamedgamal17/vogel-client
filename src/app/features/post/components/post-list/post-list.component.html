@@ -6,7 +6,11 @@
           <app-spinner></app-spinner>
      </ng-container>
      <ng-container *ngSwitchCase="DataState.LOADED">
-          <app-post-list-item *ngFor="let post of posts" [post]="post">             
+          <app-post-list-item *ngFor="let post of posts" [post]="post" scrollEnd (nearEnd)="loadNext()">             
           </app-post-list-item>
+          
+          <ng-container *ngIf="scrollLoading$ | async">
+               <app-spinner></app-spinner>
+          </ng-container>
      </ng-container>
 </ng-container>

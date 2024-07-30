@@ -5,6 +5,8 @@ import ApiResoponse from "../../types/api-response.interface";
 import { Observable } from "rxjs";
 import { User } from "../../types/users/user.interface";
 import { Post } from "../../types/posts/post.interface";
+import { createHttpParams } from "../../utilites/http-param.utility";
+import PagingParams from "../paging-params.request";
 
 @Injectable()
 export default class PeopleService{
@@ -23,9 +25,12 @@ export default class PeopleService{
     return this.httpClient.get<ApiResoponse<User>>(this.baseUrl + "/" + id)
   }
 
-  getPersonPosts(id :string) : Observable<ApiResoponse<Post[]>>{
+  getPersonPosts(id :string , paginParams? : PagingParams) : Observable<ApiResoponse<Post[]>>{
+    var optiosn = {
+      params :createHttpParams(paginParams)
+    }
     var url = this.baseUrl + "/" + id + "/" + "posts"
-    return this.httpClient.get<ApiResoponse<Post[]>>(url)
+    return this.httpClient.get<ApiResoponse<Post[]>>(url,optiosn)
   }
 
   getPersonPostById(id : string, postId : string) : Observable<ApiResoponse<Post>>
