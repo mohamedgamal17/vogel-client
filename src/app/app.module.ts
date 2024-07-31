@@ -10,6 +10,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { HomeModule } from './features/home/home.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HomeModule,
     ProfileModule,
     PostModule,
     CoreModule,

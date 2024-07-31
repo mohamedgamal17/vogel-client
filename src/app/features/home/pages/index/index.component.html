@@ -1,0 +1,11 @@
+<div class="container pt-5">
+  <div class="text-center">
+    <h3 class="text-center mb-3 mt-3">Welcome To Vogel Application</h3>
+    <ng-container *ngIf="authService.isAuthenticated$ | async">
+      <p class="pt-3 text-lg" >Go to  <a [routerLink]="['/posts']">posts</a></p> 
+    </ng-container>
+    <ng-container *ngIf="!(authService.isAuthenticated$ | async)">
+      <p class="pt-3 text-lg"> please login to use application</p>
+    </ng-container>
+  </div>
+</div>
